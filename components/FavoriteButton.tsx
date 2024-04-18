@@ -11,7 +11,7 @@ interface FavoriteButtonProps {
 
 const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
     const { mutate: mutateFavorites } = useFavorites();
-    const { data, mutate  } = useCurrentUser();
+    const { data, mutate } = useCurrentUser();
     const currentUser = data?.currentUser;
 
     const isFavorite = useMemo(() => {
@@ -40,7 +40,9 @@ const FavoriteButton = ({ movieId }: FavoriteButtonProps) => {
             });
         }
 
-        const updatedFavoriteIds = response?.data?.favoriteIds;
+        const responseData = await response.json();
+        console.log(responseData)
+        const updatedFavoriteIds = responseData.favoriteIds;
 
         mutate({
             ...currentUser,
